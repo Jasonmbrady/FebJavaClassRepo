@@ -6,8 +6,7 @@ public class LibraryTest {
         Book theLordOfTheRings = new Book("Fellowship of the Ring", "J.R.R Tolkien", "Fantasy", 421);
         Book theSilmarillion = new Book("The Silmarillion", "J.R.R Tolkien", "Fantasy", 700);
 
-        Member jason = new Member("Jason", "Brady", 
-        1);
+        Member jason = new Member("Jason", "Brady", 1);
 
         jason.checkOutBook(theSilmarillion);
         jason.checkOutBook(theSilmarillion);

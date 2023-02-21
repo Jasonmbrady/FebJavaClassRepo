@@ -7,10 +7,10 @@ public abstract class Drink {
 	
 	public Drink() {}
 
-	public void purchase() {
-		System.out.println("You have purchased a " + numberOfOunces + "oz " + name + ", which costs $" + price + ".");
-		
-	}
+	abstract public void purchase();
+//		System.out.println("You have purchased a " + numberOfOunces + "oz " + name + ", which costs $" + price + ".");
+//		
+
 	public String getName() {
 		return name;
 	}

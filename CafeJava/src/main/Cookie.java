@@ -1,6 +1,7 @@
 package main;
 
 public class Cookie implements Purchasable{
+	
 	private String name;
     private Boolean isFrosted;
     private Double price;

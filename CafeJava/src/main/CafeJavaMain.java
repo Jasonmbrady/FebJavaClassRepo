@@ -7,6 +7,7 @@ public class CafeJavaMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Coffee myCoffee = new Coffee();
+		System.out.println(Coffee.getNumSold());
 		myCoffee.setName("Breakfast Blend");
 		myCoffee.setNumberOfOunces(16);
 		myCoffee.setPrice(2.99);
@@ -15,6 +16,7 @@ public class CafeJavaMain {
 		myCoffee.setHasSugar(false);
 		myCoffee.purchase();
 		Cookie snickerdoodle = new Cookie();
+		
 		snickerdoodle.setName("Snickerdoodle");
 		snickerdoodle.setPrice(2.00);
 		snickerdoodle.setIsFrosted(false);
@@ -24,6 +26,7 @@ public class CafeJavaMain {
 		cart.add(myCoffee);
 		cart.add(snickerdoodle);
 		for (Purchasable p : cart) {
+			p.purchase();
 			System.out.println(p.getName());
 		}
 		
