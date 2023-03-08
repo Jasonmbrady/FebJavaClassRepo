@@ -94,6 +94,14 @@ public class Book {
 		this.updatedAt = updatedAt;
 	}
 	
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 	@PrePersist
     protected void onCreate(){
         this.createdAt = new Date();

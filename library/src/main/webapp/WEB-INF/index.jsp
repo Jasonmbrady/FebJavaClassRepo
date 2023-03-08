@@ -21,6 +21,7 @@
 	<div class="container">
 	<h1 class="text-primary text-center">Welcome to Library</h1>
 	<p><a href="/book/new">Add a Book</a></p>
+	<p><a href="/member/new">Add a Member</a></p>
 		<div class="row">
 			<table class="table table-striped">
 				<thead class="table-dark">
@@ -41,6 +42,26 @@
 								<input type="hidden" name="_method" value="delete"/>
 								<button class="btn btn-danger">Delete</button>
 							</form> <a href="/book/${book.id}" class="btn btn-primary">Edit</a></td>				
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<div class="row">
+			<table class="table table-striped">
+				<thead class="table-dark">
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var = "member" items="${allMembers}">
+						<tr>
+							<td><c:out value="${member.firstName}" /></td>
+							<td><c:out value="${member.lastName}" /></td>
+							<td><a href="/member/${member.id}" class="btn btn-primary">View</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

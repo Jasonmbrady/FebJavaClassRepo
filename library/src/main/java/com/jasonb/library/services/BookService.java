@@ -19,7 +19,7 @@ public class BookService {
 		return bookRepo.findAll();
 	}
 	
-	public Book create(Book b) {
+	public Book save(Book b) {
 		return bookRepo.save(b);
 	}
 	
@@ -36,7 +36,7 @@ public class BookService {
 		}
 	}
 	
-	public Book update(Book b) {
-		return bookRepo.save(b);
-	}
+//	public Book update(Book b) {
+//		return bookRepo.save(b);
+//	}
 }

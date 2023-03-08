@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jasonb.library.models.Book;
 import com.jasonb.library.services.BookService;
+import com.jasonb.library.services.MemberService;
 
 @Controller
 public class HomeController {
 	
 	@Autowired
 	private BookService bookServ;
+	@Autowired
+	private MemberService memberServ;
 	
 	@GetMapping("/")
 	public String index(Model model) {
@@ -31,6 +34,7 @@ public class HomeController {
 		List<Book> allBooks = bookServ.findAll();
 		// Store list in model
 		model.addAttribute("allBooks", allBooks);
+		model.addAttribute("allMembers", memberServ.findAll());
 		return "index.jsp";
 	}
 	
@@ -45,7 +49,7 @@ public class HomeController {
 		if (result.hasErrors()) {
 			return "newBook.jsp";
 		}
-		bookServ.create(newBook);
+		bookServ.save(newBook);
 		return "redirect:/";
 	}
 	
@@ -68,7 +72,15 @@ public class HomeController {
 			return "editBook.jsp";
 		}
 		book.setId(id);
-		bookServ.update(book);
+		bookServ.save(book);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/book/{id}/return")
+	public String returnBook(@PathVariable("id") Long Id) {
+		Book book = bookServ.findOneById(Id);
+		book.setMember(null);
+		bookServ.save(book);
 		return "redirect:/";
 	}
 //	@GetMapping("/book/{id}/delete")

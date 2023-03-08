@@ -18,7 +18,31 @@
     <script type="text/javascript" src="/js/app.js"></script><!-- change to match your file/naming structure -->
 </head>
 <body>
-   <h1>Hello, Tacos</h1>
+	<div class='container'>
+	   <h1><c:out value="${String.format(' %s %s', member.firstName,member.lastName)}" /></h1>
+	   <div class = "row">
+	   	<form action="/member/${id}/checkout" method="POST" class="col-sm">
+	   		<label for="books">Check out a book:</label>
+	   		<select name="book" id="books">
+	   			<c:forEach var="book" items="${allBooks}">
+	   				<c:if test="${book.member == null}">
+	   					<option value="${book.id}"><c:out value="${book.title}"/></option>
+	   				</c:if>
+	   			</c:forEach>
+	   		</select>
+	   		<button>Check Out</button>
+	   	</form>
+	   	<div>
+	   		<h2>Books Currently Checked Out</h2>
+		   	<ul>
+		   		<c:forEach var="book" items="${member.booksCheckedOut}">
+		   				<li><c:out value="${book.title}" /> <a href="/book/${book.id}/return" class="btn btn-danger">Return</a></li>
+		   		</c:forEach>
+		   	</ul>
+	   	</div>
+	   </div>
+	</div>
+   
 </body>
 </html>
 

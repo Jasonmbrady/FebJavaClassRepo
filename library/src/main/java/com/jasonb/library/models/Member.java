@@ -78,6 +78,15 @@ public class Member {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	public List<Book> getBooksCheckedOut() {
+		return booksCheckedOut;
+	}
+
+	public void setBooksCheckedOut(List<Book> booksCheckedOut) {
+		this.booksCheckedOut = booksCheckedOut;
+	}
+
 	@PrePersist
     protected void onCreate(){
         this.createdAt = new Date();
