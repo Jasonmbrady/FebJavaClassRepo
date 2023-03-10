@@ -25,9 +25,21 @@
 	   		<label for="books">Check out a book:</label>
 	   		<select name="book" id="books">
 	   			<c:forEach var="book" items="${allBooks}">
-	   				<c:if test="${book.member == null}">
+	   			<c:choose>
+	   				<c:when test="${book.member == null}">
 	   					<option value="${book.id}"><c:out value="${book.title}"/></option>
-	   				</c:if>
+	   				</c:when>
+	   				<c:when test="${book.member.id == myId}">
+	   					<option value="${book.id}" class="text-danger"><c:out value="${book.title}"/> You have this book checked out!</option>
+	   				</c:when>
+	   				<c:otherwise>
+	   					<option value="${book.id}">NONE OF THE ABOVE</option>
+	   				</c:otherwise>
+	   			</c:choose>
+	   				<%-- <c:if test="${book.member == null}">
+	   					<option value="${book.id}"><c:out value="${book.title}"/></option>
+	   				</c:if> --%>
+	   				
 	   			</c:forEach>
 	   		</select>
 	   		<button>Check Out</button>
