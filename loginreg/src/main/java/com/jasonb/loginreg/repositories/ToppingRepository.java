@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.jasonb.loginreg.models.Taco;
+import com.jasonb.loginreg.models.Topping;
 
 @Repository
-public interface TacoRepository extends CrudRepository<Taco, Long>{
-	
-	public List<Taco> findAll();
+public interface ToppingRepository extends CrudRepository<Topping, Long>{
+
+	public List<Topping> findAll();
 }

@@ -1,16 +1,12 @@
-package com.jasonb.loginreg.models;
+package com.jasonb.luricslab.models;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -24,7 +20,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="users")
 public class User {
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -39,13 +34,6 @@ public class User {
 	private String password;
 	@Transient
 	private String confirmPass;
-	
-
-	@OneToMany(mappedBy="submittedBy", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<Taco> tacosSubmitted;
-	
-	@OneToMany(mappedBy="commenter", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<Comment> comments;
 	
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -94,7 +82,7 @@ public class User {
 	public void setConfirmPass(String confirmPass) {
 		this.confirmPass = confirmPass;
 	}
-
+	
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -110,15 +98,6 @@ public class User {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
-	public List<Taco> getTacosSubmitted() {
-		return tacosSubmitted;
-	}
-
-	public void setTacosSubmitted(List<Taco> tacosSubmitted) {
-		this.tacosSubmitted = tacosSubmitted;
-	}
 
 	@PrePersist
     protected void onCreate(){
@@ -128,13 +107,7 @@ public class User {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+	
+	
 	
 }

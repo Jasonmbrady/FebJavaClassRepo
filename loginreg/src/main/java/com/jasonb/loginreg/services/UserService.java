@@ -54,4 +54,8 @@ public class UserService {
 		}
 		return optUser.get();
 	}
+	
+	public User save(User u) {
+		return userRepo.save(u);
+	}
 }

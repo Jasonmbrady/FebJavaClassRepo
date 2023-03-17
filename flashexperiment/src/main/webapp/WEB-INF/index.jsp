@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>LoginApp</title>
+    <title>TEST</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css"> <!-- change to match your file/naming structure -->
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -21,7 +21,6 @@
     <div class="container">
  
         <h1>Welcome to the LoginApp!</h1>
-        <h3 class="text-danger"><c:out value="${error}" /></h3>
         <div class="row">
             <form:form action="/register" method="POST" modelAttribute="user" class="col">
                 <h2>Register Here:</h2>

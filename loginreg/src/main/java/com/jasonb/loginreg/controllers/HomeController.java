@@ -1,5 +1,6 @@
 package com.jasonb.loginreg.controllers;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -10,9 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jasonb.loginreg.models.LoginUser;
 import com.jasonb.loginreg.models.User;
+import com.jasonb.loginreg.services.TacoService;
 import com.jasonb.loginreg.services.UserService;
 
 @Controller
@@ -20,10 +23,11 @@ public class HomeController {
 	
 	@Autowired
 	private UserService userServ;
+	@Autowired
+	private TacoService tacoServ;
 	
 	@GetMapping("/")
-	public String index(Model model) {
-		
+	public String index(Model model, HttpServletRequest request) {
 		model.addAttribute("user", new User());
 		model.addAttribute("loginUser", new LoginUser());
 		return "index.jsp";
@@ -56,12 +60,14 @@ public class HomeController {
 	}
 	
 	@GetMapping("/dashboard")
-	public String dashboard(Model model, HttpSession session) {
+	public String dashboard(Model model, HttpSession session, RedirectAttributes redirect) {
 		if (session.getAttribute("userId") == null) {
+			redirect.addFlashAttribute("error", "You must be logged in to do that!");
 			return "redirect:/";
 		}
 		Long id = (Long) session.getAttribute("userId");
 		User loggedUser = userServ.findById(id);
+		model.addAttribute("allTacos", tacoServ.findAll());
 		model.addAttribute("user", loggedUser);
 		return "dashboard.jsp";
 	}

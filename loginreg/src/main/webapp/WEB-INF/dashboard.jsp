@@ -19,13 +19,24 @@
 </head>
 <body>
    <h1>Hello, <c:out value="${user.username}" /></h1>
-   <p><a href="/logout">logout</a></p>
-   <p><a href="/taco/new">Create a Taco!</a></p>
-   <ul>
-   	<c:forEach var="taco" items="${user.tacosSubmitted}">
-   		<li><c:out value="${taco.name}" /></li>
-   	</c:forEach>
-   </ul>
+   <div class="container">
+   	<div class="row">   		
+	   <p><a href="/logout">logout</a></p>
+	   <p><a href="/taco/new">Create a Taco!</a></p>
+	   <ul class="col">
+	   	<c:forEach var="taco" items="${user.tacosSubmitted}">
+	   		<li><a href="/taco/${taco.id}"><c:out value="${taco.name}" /></a></li>
+	   	</c:forEach>
+	   </ul>
+	   <ul class="col">
+	   	<c:forEach var="taco" items="${allTacos}">
+	   		<c:if test="${taco.submittedBy.id != user.id}">
+		   		<li><a href="/taco/${taco.id}"><c:out value="${taco.name}"/></a></li>
+	   		</c:if>
+	   	</c:forEach>
+	   </ul>
+   	</div>
+   </div>
 </body>
 </html>
 

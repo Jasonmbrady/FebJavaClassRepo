@@ -1,16 +1,12 @@
-package com.jasonb.loginreg.models;
+package com.jasonb.flashexperiment.models;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -24,28 +20,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="users")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@NotEmpty
-	@Size(min=3)
+	@NotEmpty(message="Username is required")
+	@Size(min=3, message="Username must be at least 3 characters long")
 	private String username;
-	@NotEmpty
-	@Email(message="That's not an email address bruh!")
+	@NotEmpty(message="Please enter a valid email address")
+	@Email(message="Please enter a valid email address")
 	private String email;
-	@NotEmpty
-	@Size(min=8)
+	@NotEmpty(message="Password is required")
+	@Size(min=8, message="Passwords must be at least 8 characters long")
 	private String password;
 	@Transient
 	private String confirmPass;
-	
-
-	@OneToMany(mappedBy="submittedBy", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<Taco> tacosSubmitted;
-	
-	@OneToMany(mappedBy="commenter", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<Comment> comments;
 	
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -109,17 +98,8 @@ public class User {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
-	}
+	};
 	
-	
-	public List<Taco> getTacosSubmitted() {
-		return tacosSubmitted;
-	}
-
-	public void setTacosSubmitted(List<Taco> tacosSubmitted) {
-		this.tacosSubmitted = tacosSubmitted;
-	}
-
 	@PrePersist
     protected void onCreate(){
         this.createdAt = new Date();
@@ -128,13 +108,4 @@ public class User {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-	
 }
