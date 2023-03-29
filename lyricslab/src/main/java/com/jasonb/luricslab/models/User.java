@@ -1,12 +1,19 @@
 package com.jasonb.luricslab.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -34,6 +41,17 @@ public class User {
 	private String password;
 	@Transient
 	private String confirmPass;
+	
+	@OneToMany(mappedBy="submittedBy", fetch=FetchType.LAZY)
+	private List<Song> songs;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name="collaborators",
+			joinColumns= @JoinColumn(name="user_id"),
+			inverseJoinColumns= @JoinColumn(name="song_id")
+			)
+	private List<Song> collaborations = new ArrayList<Song>();
 	
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -107,6 +125,22 @@ public class User {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
+
+	public List<Song> getSongs() {
+		return songs;
+	}
+
+	public void setSongs(List<Song> songs) {
+		this.songs = songs;
+	}
+
+	public List<Song> getCollaborations() {
+		return collaborations;
+	}
+
+	public void setCollaborations(List<Song> collaborations) {
+		this.collaborations = collaborations;
+	}
 	
 	
 	
