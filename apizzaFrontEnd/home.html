@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello, World!</h1>
+        <form action="/api/new" method="post" id="new-pizza-form">
+            <div>
+                <label for="toppings">Toppings:</label>
+                <input type="text" name="toppings" id="toppings">
+            </div>
+            <div>
+                <label for="crust">Crust:</label>
+                <input type="text" name="crust" id="crust">
+            </div>
+            <button>Create</button>
+        </form>
+        <h3>All Pizzas</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Toppings</th>
+                    <th>Crust</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="pizza-table">
+
+            </tbody>
+        </table>
+    </div>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>
+<script src="script.js"></script> 
+</body>
+</html>

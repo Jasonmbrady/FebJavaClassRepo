@@ -1,5 +1,6 @@
 package com.jasonb.apizza.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,9 @@ public class PizzaService {
 	
 	public void delete(Long id) {
 		pizzaRepo.deleteById(id);
+	}
+	
+	public List<Pizza> findAll(){
+		return pizzaRepo.findAll();
 	}
 }

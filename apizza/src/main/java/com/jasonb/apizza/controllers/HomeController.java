@@ -1,6 +1,9 @@
 package com.jasonb.apizza.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jasonb.apizza.models.Pizza;
 import com.jasonb.apizza.services.PizzaService;
 
+@CrossOrigin
 @RestController
 public class HomeController {
 	@Autowired
@@ -25,6 +29,11 @@ public class HomeController {
 	@GetMapping("/api/{id}")
 	public Pizza getOnePizza(@PathVariable("id") Long id) {
 		return pizzaServ.findById(id);
+	}
+	
+	@GetMapping("/api/all")
+	public List<Pizza> getAll(){
+		return pizzaServ.findAll();
 	}
 	
 	@PostMapping("/api/new")
