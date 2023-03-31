@@ -2,6 +2,7 @@ package com.jasonb.apizza.controllers;
 
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,14 +13,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jasonb.apizza.models.LoginUser;
 import com.jasonb.apizza.models.Pizza;
+import com.jasonb.apizza.models.User;
 import com.jasonb.apizza.services.PizzaService;
+import com.jasonb.apizza.services.UserService;
 
 @CrossOrigin
 @RestController
 public class HomeController {
 	@Autowired
 	private PizzaService pizzaServ;
+	@Autowired
+	private UserService userServ;
 
 	@GetMapping("/")
 	public String index() {
@@ -56,5 +62,23 @@ public class HomeController {
 			pizzaServ.delete(id);
 			return "Pizza with " + pizza.getToppings() + "deleted!";
 		}
+	}
+	
+	@PostMapping("/api/register")
+	public User createUser(@RequestBody User user) {
+		String pw = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+		user.setPassword(pw);
+		User newuser = userServ.save(user);
+		newuser.setPassword(null);
+		return newuser;
+	}
+	
+	@PostMapping("/api/login")
+	public User loginUser(@RequestBody LoginUser loginUser) {
+		User loggedUser = userServ.findByEmail(loginUser.getEmail());
+		if (!BCrypt.checkpw(loginUser.getPassword(), loggedUser.getPassword())){
+			return null;
+		}
+		return loggedUser;
 	}
 }
